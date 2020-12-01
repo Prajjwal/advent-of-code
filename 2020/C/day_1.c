@@ -1,20 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <malloc.h>
-#include <sys/time.h>
-
-_Noreturn void die (int code, const char * message) {
-  puts (message);
-  exit (code);
-}
-
-double get_time()
-{
-    struct timeval t;
-    struct timezone tzp;
-    gettimeofday(&t, &tzp);
-    return t.tv_sec + t.tv_usec*1e-6;
-}
+#include "./include/util.h"
 
 void pair_summing_to(int **, long long, int *);
 void triplet_summing_to(int **, long long, int *);
@@ -44,18 +31,20 @@ int main (int argc, const char* argv[])
   fclose(input_file);
   free (buffer);
 
+  double t1, t2;
+
   int * result_pair = malloc (2 * sizeof (int));
-  double t1 = get_time ();
+  t1 = now ();
   pair_summing_to(&result_pair, 2020, input);
-  double t2 = get_time ();
-  printf ("[%d, %d] in [%lfs]\n", result_pair[0], result_pair[1], t2 - t1);
+  t2 = now ();
+  printf ("%d in [%lfs]\n", result_pair[0] * result_pair[1], t2 - t1);
   free (result_pair);
 
   int * result_triplet = malloc (3 * sizeof (int));
-  t1 = get_time ();
+  t1 = now ();
   triplet_summing_to(&result_triplet, 2020, input);
-  t2 = get_time ();
-  printf ("[%d, %d, %d] in %lfs\n", result_triplet[0], result_triplet[1], result_triplet[2], t2 - t1);
+  t2 = now ();
+  printf ("%d in [%lfs]\n", result_triplet[0] * result_triplet[1] * result_triplet[2], t2 - t1);
   free (result_triplet);
 
   free (input);
