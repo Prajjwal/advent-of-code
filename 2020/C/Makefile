@@ -1,11 +1,8 @@
 P=$1
-OBJECTS=util.o
+OBJECTS=lib/util.o
 CFLAGS = -g -Wall -O3 -std=gnu11
 LDLIBS=
 CC=gcc
-
-util.o:
-	gcc -c lib/util.c -o lib/util.o
 
 day_1: $(OBJECTS) day_1.o
 	gcc day_1.o lib/util.o -o day_1
