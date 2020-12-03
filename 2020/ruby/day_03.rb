@@ -65,12 +65,9 @@ end
 class TreeCounter
   attr_accessor :count, :toboggan
 
-  def initialize(toboggan)
+  def initialize(map)
     @count = 0
-    @toboggan = toboggan
-    @map = toboggan.map
-
-    @toboggan.add_observer(self)
+    @map = map
   end
 
   def update(position)
@@ -81,15 +78,19 @@ end
 map = Map.new(ARGF.readlines.map(&:chomp))
 
 # Part 1
+t = TreeCounter.new(map)
 toboggan = Toboggan.new(map)
-t = TreeCounter.new(toboggan)
+toboggan.add_observer(t)
 toboggan.slide_down_slope
 p t.count # => 289
 
 # Part 2
 counts = [[1, 1], [3, 1], [5, 1], [7, 1], [1, 2]].map do |right, down|
   toboggan = Toboggan.new(map, right: right, down: down)
-  counter = TreeCounter.new(toboggan)
+  counter = TreeCounter.new(map)
+
+  toboggan.add_observer(counter)
+
   toboggan.slide_down_slope
   counter.count
 end
