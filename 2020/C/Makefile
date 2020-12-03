@@ -1,11 +1,13 @@
-P=$1
-OBJECTS=lib/util.o
+LIBS=lib/util.o
+SOURCE_FILES=$(wildcard *.c)
+OBJECTS=$(patsubst %.c,%.o,$(SOURCE_FILES))
+TARGETS=$(patsubst %.c,%,$(SOURCE_FILES))
 CFLAGS = -g -Wall -O3 -std=gnu11
 LDLIBS=
 CC=gcc
 
-day_01: $(OBJECTS) day_01.o
-	gcc day_01.o lib/util.o -o day_01
+$(TARGETS): $(OBJECTS) $(LIBS)
+	$(CC) $(CFLAGS) $@.o lib/util.o -o $@
 
 clean:
 	-find -type f -executable -print0 | xargs -0 rm
