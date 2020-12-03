@@ -1,4 +1,4 @@
-input := File clone openForReading("../inputs/day_1") readLines map(asNumber)
+input := File clone openForReading("../inputs/day_01") readLines map(asNumber)
 
 pairThatSumsTo := method (
     target,
