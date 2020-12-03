@@ -34,12 +34,10 @@ class Toboggan
   end
 
   def move(right: @right, down: @down)
-    @position.x += right
+    @position.x = (@position.x + right) % @map.size.x
     @position.y += down
 
     raise StopIteration if past_slope?
-
-    wrap_around if out_of_bounds?
 
     changed
     notify_observers(@position)
@@ -47,14 +45,6 @@ class Toboggan
 
   def slide_down_slope
     loop { move }
-  end
-
-  def wrap_around
-    @position.x -= @map.size.x
-  end
-
-  def out_of_bounds?
-    @position.x >= @map.size.x
   end
 
   def past_slope?
