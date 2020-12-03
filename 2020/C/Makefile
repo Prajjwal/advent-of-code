@@ -4,8 +4,8 @@ CFLAGS = -g -Wall -O3 -std=gnu11
 LDLIBS=
 CC=gcc
 
-day_1: $(OBJECTS) day_1.o
-	gcc day_1.o lib/util.o -o day_1
+day_01: $(OBJECTS) day_01.o
+	gcc day_01.o lib/util.o -o day_01
 
 clean:
 	-find -type f -executable -print0 | xargs -0 rm
