@@ -1,3 +1,5 @@
+# Enterprise Ready lol
+
 defmodule Part1 do
   defmodule Policy do
     defstruct char: nil, min: nil, max: nil
