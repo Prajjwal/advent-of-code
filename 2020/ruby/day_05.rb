@@ -7,8 +7,7 @@ class BoardingPass
 
   def seat
     row, column = converge
-
-    @seat = row * 8 + column
+    row * 8 + column
   end
 
   private
@@ -21,14 +20,10 @@ class BoardingPass
       hmid = (left + right) / 2
 
       case char
-      when 'F'
-        top = vmid
-      when 'B'
-        bottom = vmid + 1
-      when 'L'
-        right = hmid
-      when 'R'
-        left = hmid + 1
+      when 'F'; top = vmid
+      when 'B'; bottom = vmid + 1
+      when 'L'; right = hmid
+      when 'R'; left = hmid + 1
       end
     end
 
@@ -42,10 +37,10 @@ seats = ARGF.readlines.map { |i| BoardingPass.new(i).seat }.sort
 p seats.max # => 858
 
 # Part 2
-seat_before_gap = seats.reduce do |last, current|
-  break last unless (current - last) == 1
+missing_seat = seats.reduce do |last, current|
+  break last + 1 unless (current - last) == 1
 
   current
 end
 
-p seat_before_gap + 1 # => 557
+p missing_seat # => 557

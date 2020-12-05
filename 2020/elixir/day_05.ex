@@ -31,8 +31,8 @@ seats = File.read!(hd System.argv)
 IO.inspect(Enum.max(seats)) # => 858
 
 # Part 2
-result = Enum.reduce_while seats, Enum.min(seats) - 1, fn current, last ->
+missing_seat = Enum.reduce_while seats, Enum.min(seats) - 1, fn current, last ->
   if (current - last) == 1, do: { :cont, current }, else: { :halt, last + 1 }
 end
 
-IO.inspect(result) # => 557
+IO.inspect(missing_seat) # => 557
