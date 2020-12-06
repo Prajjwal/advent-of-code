@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
 class Group
-  def initialize(size, answers)
-    @size = size
-    @answers = answers
+  def initialize(answers)
+    @answers = answers.join('').split('')
+    @size = answers.size
+  end
+
+  def self.parse(answers)
+    new(answers.split("\n"))
   end
 
   def everyone_agrees_on
@@ -15,15 +19,10 @@ class Group
   end
 end
 
-groups = ARGF.readlines
-             .map(&:chomp)
-             .chunk(&:empty?)
-             .filter_map do |separator, chunk|
-               Group.new(chunk.size, chunk.join.split('')) unless separator
-             end
+groups = ARGF.read.split("\n\n").map { |chunk| Group.parse(chunk) }
 
 # Part 1
-p groups.map(&:someone_agrees_on).map(&:size).sum # => 6947
+p groups.map(&:someone_agrees_on).sum(&:size)  # => 6947
 
 # Part 2
-p groups.map(&:everyone_agrees_on).map(&:size).sum # => 3398
+p groups.map(&:everyone_agrees_on).sum(&:size) # => 3398
