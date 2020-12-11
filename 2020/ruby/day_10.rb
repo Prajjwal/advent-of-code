@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 input = ARGF.readlines.map(&:chomp).reject(&:empty?).map(&:to_i)
 
 adapters = [0] + input.sort + [input.max + 3]
