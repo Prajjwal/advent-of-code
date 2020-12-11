@@ -137,7 +137,7 @@ class World
         break if out_of_bounds?(i, j) || seat?(i, j)
       end
 
-      true if !out_of_bounds?(i, j) && occupied?(i, j)
+      occupied?(i, j) unless out_of_bounds?(i, j)
     end
   end
 end
