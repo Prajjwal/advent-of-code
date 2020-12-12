@@ -60,17 +60,8 @@ module Part2
     end
 
     def turn(by: 90)
-      direction = by.positive? ? :clockwise : :anticlockwise
-
-      (by.abs / 90).to_i.times { send("turn_#{direction}") }
-    end
-
-    def turn_clockwise
-      @waypoint.east, @waypoint.north = @waypoint.north, @waypoint.east * -1
-    end
-
-    def turn_anticlockwise
-      @waypoint.east, @waypoint.north = @waypoint.north * -1, @waypoint.east
+      waypoint = Complex(@waypoint.north, @waypoint.east) * Complex('i') ** (by / 90)
+      @waypoint.north, @waypoint.east = waypoint.real, waypoint.imaginary
     end
   end
 end
